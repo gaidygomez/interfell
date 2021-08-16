@@ -17,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [LoginController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('users', [UsersController::class, 'users']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('users', [UsersController::class, 'users']);
+    Route::patch('edit', [UsersController::class, 'edit']);
+    Route::delete('delete', [UsersController::class, 'delete']);
+});

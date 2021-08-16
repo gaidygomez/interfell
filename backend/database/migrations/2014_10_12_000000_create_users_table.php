@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->tinyInteger('age')->nullable();
-            $table->string('profession')->nullable();
-            $table->string('dni')->nullable(); //Numero de identifacion del usuario
+            $table->string('profession')->default('');
+            $table->string('dni')->default(''); //Numero de identifacion del usuario
             $table->rememberToken();
             $table->timestamps();
         });
