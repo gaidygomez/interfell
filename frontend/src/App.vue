@@ -1,32 +1,70 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6 offset-s3 offset-m3">
+        <div class="card">
+          <div class="card-content">
+            <div class="row center-align">
+              <h4>Login</h4>
+            </div>
+            <div class="divider"></div>
+            <form @submit.prevent="login">
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">person</i>
+                  <input v-model="user" id="user" type="text" class="validate">
+                  <label for="user">Username</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">lock</i>
+                  <input v-model="password" id="password" type="password" class="validate">
+                  <label for="password">Password</label>
+                </div>
+              </div>
+              <div class="card-action action-btn">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                  <i class="material-icons right">vpn_key</i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+  export default {
+    data() {
+      return {
+        user: '',
+        password: ''
+      }
+    },
+    methods: {
+      login() {
+        this.$http.get('/sanctum/csrf-cookie')
+          .then(() => {
+            this.$http.post('/api/login', {
+              username: this.user,
+              password: this.password
+            })
+              .then(res => console.log(res))
+              .catch(err => console.log(err.response.data))
+          })
+          .catch(err => console.error(err))
+      }
+    }
+  }
 
-#nav {
-  padding: 30px;
-}
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style scoped>
+  .action-btn {
+    display: flex;
+    justify-content: flex-end;
+  }
 </style>
