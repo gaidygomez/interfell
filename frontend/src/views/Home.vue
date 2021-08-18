@@ -1,33 +1,31 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col s12 m6 offset-s3 offset-m3">
-        <div class="card">
-          <div class="card-content">
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="user" type="text" class="validate">
-                <label for="user">Username</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
-                <label for="password">Password</label>
-              </div>
-            </div>
-          </div>
-          <div class="card-action">
-            <a href="#">This is a link</a>
-            <a href="#">This is a link</a>
-          </div>
-        </div>
+  <div class="about">
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo"></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li></li>
+          <li></li>
+          <li><a href="collapsible.html">Logout</a></li>
+        </ul>
       </div>
-    </div>
+    </nav>
+    <hello-world />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import HelloWorld from '../components/HelloWorld.vue'
 
+export default {
+  components: {
+    HelloWorld
+  }
+}
 </script>
+
+<style scoped>
+nav {
+  background-color: #26a69a;  
+}
+</style>
