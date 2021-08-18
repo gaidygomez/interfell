@@ -18,6 +18,6 @@ class LoginController extends Controller
 
         $token = $user->createToken('access_interfell')->plainTextToken;
 
-        return response(['acces_token' => $token]);
+        return response(['access_token' => $token]);
     }
 }
