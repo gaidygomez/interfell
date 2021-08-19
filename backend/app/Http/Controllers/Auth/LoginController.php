@@ -20,4 +20,9 @@ class LoginController extends Controller
 
         return response(['access_token' => $token]);
     }
+
+    public function logout(Request $request)
+    {
+        return auth()->user()->tokens()->delete();
+    }
 }

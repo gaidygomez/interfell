@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users', [UsersController::class, 'users']);
     Route::patch('edit', [UsersController::class, 'edit']);
     Route::delete('delete', [UsersController::class, 'delete']);
+    Route::post('logout', [LoginController::class, 'logout']);
 });
