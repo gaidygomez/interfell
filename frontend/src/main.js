@@ -33,7 +33,7 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   response => {
-    if (response.status === 200 || response.status === 201) {
+    if (response.status === 200 || response.status === 201 || response.status === 204) {
       return Promise.resolve(response);
     } else {
       return Promise.reject(response);

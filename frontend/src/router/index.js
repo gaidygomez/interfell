@@ -30,6 +30,10 @@ const routes = [
         component: () => import('../components/Index.vue')
       },
       {
+        path: 'create',
+        component: () => import('../components/Add.vue')
+      },
+      {
         path: 'edit/:id',
         name: 'edit',
         component: () => import('../components/Edit.vue')

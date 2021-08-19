@@ -18,8 +18,10 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [LoginController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('create', [UsersController::class, 'create']);
     Route::get('users', [UsersController::class, 'users']);
     Route::patch('edit', [UsersController::class, 'edit']);
     Route::delete('delete', [UsersController::class, 'delete']);
     Route::post('logout', [LoginController::class, 'logout']);
+    Route::get('dni', [UsersController::class, 'dni']);
 });

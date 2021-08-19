@@ -5,9 +5,15 @@
           <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>Last Name</th>
+              <th>
+                Last Name
+                <i @click="order('last_name')" class="material-icons prefix waves-effect">swap_vert</i>
+              </th>
               <th>DNI</th>
-              <th>Age</th>
+              <th>
+                Age
+                <i @click="order('age')" class="material-icons prefix waves-effect">swap_vert</i>
+              </th>
               <th>Profession</th>
               <th></th>
           </tr>
@@ -39,11 +45,16 @@
 <script>
 export default {
   name: 'Index',
+  data() {
+    return {
+      asc: false
+    }
+  },
   created() {
-    this.$store.dispatch('users')
+    this.$store.dispatch('users', { order: 'id', asc: 'asc' })
   },
   methods: {
-    deleteUser() {
+    deleteUser(id) {
       this.$swal({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -51,7 +62,9 @@ export default {
         showCancelButton: true,
       })
       .then(res => {
-        console.log(res)
+        if (res.isConfirmed) {
+          this.$store.dispatch('delete', { id })
+        }
       })
     },
     edit(id) { 
@@ -60,6 +73,11 @@ export default {
           id
         }
       })
+    },
+    order(param) {
+      this.asc = ! this.asc;
+
+      this.$store.dispatch('users', { order: param, asc: this.asc ? 'asc' : 'desc' })
     }
   },
   computed: {
@@ -71,6 +89,10 @@ export default {
 </script>
 
 <style scoped>
+i:hover {
+  color: #888888;
+}
+
 .btn-table { 
   display: flex;
   justify-content: space-around;

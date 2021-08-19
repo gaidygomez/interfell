@@ -57,7 +57,11 @@ export default {
   },
   methods: {
     signup() {
-      this.$store.dispatch('register')
+      this.$store.dispatch('register', {
+        user: this.user,
+        password: this.password,
+        confirmation: this.confirmation
+      })
     }
   }
 }

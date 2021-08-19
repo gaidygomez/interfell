@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 import api from '@/axios/api.js'
-import router from '../router/index'
+import router from '@/router/index'
 
 Vue.use(Vuex)
 
@@ -44,11 +44,11 @@ export default new Vuex.Store({
         })
               .catch(err => console.log(err))
     },
-    register() {
+    register(context, payload) {
       api.post('/api/register', {
-        username: this.user,
-        password: this.password,
-        password_confirmation: this.confirmation
+        username: payload.user,
+        password: payload.password,
+        password_confirmation: payload.confirmation
       })
       .then(() => {
         router.push('/')
@@ -65,12 +65,40 @@ export default new Vuex.Store({
         })
         .catch(err => console.error(err))
     },
-    users({commit}) {
-      api.get('/api/users')
+    users({commit}, {order, asc, profession}) {
+      profession === undefined ?? ''
+
+      api.get('/api/users', {
+        params: {
+          order,
+          asc,
+          profession
+        }
+      })
         .then(res => commit('users', { 
           users: res.data
         }))
         .catch(err => console.error(err))
+    },
+    delete(context, { id }) {
+      api.delete('/api/delete', {
+        data: {
+          id
+        }
+      })
+        .then(res => {
+          if (res.data.logout) {
+            context.commit('logout')
+
+            router.push('/')
+          } else {
+            context.dispatch('users', { order: 'id' })
+          }
+        })
+        .catch(err => console.error(err))
+    },
+    search(context, {profession}) {
+      context.dispatch('users', { order: 'id', asc: 'asc', profession })
     }
   },
   getters: {
