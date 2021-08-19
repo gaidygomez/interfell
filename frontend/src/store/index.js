@@ -31,54 +31,37 @@ export default new Vuex.Store({
   },
   actions: {
     login(context, payload) {
-      api.get('/sanctum/csrf-cookie')
-          .then(() => {
-            api.post('/api/login', {
-              username: payload.user,
-              password: payload.password
-            })
-              .then(res => {
-                  localStorage.setItem('token', res.data.access_token)
+      api.post('/api/login', {
+        username: payload.user,
+        password: payload.password
+      })
+        .then(res => {
+            localStorage.setItem('token', res.data.access_token)
 
-                  context.commit('login', { token: res.data.access_token })
-                  
-                  router.push('/home')
-              })
+            context.commit('login', { token: res.data.access_token })
+            
+            router.push('/home')
+        })
               .catch(err => console.log(err))
-          })
-          .catch(err => console.error(err))
     },
     register() {
-      api.get('/sanctum/csrf-cookie')
-        .then(() => {
-          api.post('/api/register', {
-            username: this.user,
-            password: this.password,
-            password_confirmation: this.confirmation
-          })
-          .then(() => {
-            router.push('/')
-          }).catch((err) => {
-            console.error(err.response)
-          });
-        }).catch((err) => {
-          console.error(err)
-        });
+      api.post('/api/register', {
+        username: this.user,
+        password: this.password,
+        password_confirmation: this.confirmation
+      })
+      .then(() => {
+        router.push('/')
+      }).catch((err) => {
+        console.error(err.response)
+      });
     },
     logout(context) {
-      api.get('/sanctum/csrf-cookie')
+      api.post('/api/logout')
         .then(() => {
-          api.post('/api/logout', {}, {
-            headers: {
-              'Authorization': `Bearer ${context.state.token}`
-            }
-          })
-            .then(() => {
-              context.commit('logout')
+          context.commit('logout')
 
-              router.push('/')
-            })
-            .catch(err => console.error(err))
+          router.push('/')
         })
         .catch(err => console.error(err))
     },
@@ -96,6 +79,9 @@ export default new Vuex.Store({
     },
     getUsers: state => {
       return state.users
+    },
+    getUser: (state) => (id) => {
+      return state.users.find(user => user.id === id)
     }
   },
   modules: {

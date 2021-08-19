@@ -22,7 +22,7 @@
               <td> {{ user.profession || 'Empty' }} </td>
               <td>
                 <div class="btn-table">
-                  <button class="btn-floating btn-large waves-effect waves-light">
+                  <button @click="edit(user.id)" class="btn-floating btn-large waves-effect waves-light">
                     <i class="material-icons prefix">create</i>
                   </button>
                   <button @click="deleteUser(user.id)" class="btn-floating btn-large waves-effect waves-light red">
@@ -52,6 +52,13 @@ export default {
       })
       .then(res => {
         console.log(res)
+      })
+    },
+    edit(id) { 
+      this.$router.push({ 
+        name: 'edit', params: { 
+          id
+        }
       })
     }
   },

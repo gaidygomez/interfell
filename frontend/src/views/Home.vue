@@ -17,17 +17,13 @@
         </ul>
       </div>
     </nav>
-    <index />
+    <router-view />
   </div>
 </template>
 
 <script>
-import Index from '../components/Index.vue'
 
 export default {
-  components: {
-    Index
-  },
   methods: {
     logout() {
       this.$store.dispatch('logout')

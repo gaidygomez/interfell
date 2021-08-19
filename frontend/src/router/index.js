@@ -23,7 +23,18 @@ const routes = [
     component: () => import('../views/Home.vue'),
     meta: {
       auth: true
-    }
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('../components/Index.vue')
+      },
+      {
+        path: 'edit/:id',
+        name: 'edit',
+        component: () => import('../components/Edit.vue')
+      }
+    ],
   },
   {
     path: '*',

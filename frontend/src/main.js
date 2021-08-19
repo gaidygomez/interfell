@@ -16,6 +16,30 @@ if (token) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
 
+api.interceptors.request.use(
+  config => {
+      let accessToken = localStorage.getItem('token');
+      if (accessToken) {
+          config.headers = Object.assign({
+              Authorization: `Bearer ${accessToken}`
+          }, config.headers);
+      }
+      return config;
+  },
+  error => {
+      return Promise.reject(error);
+  }
+);
+
+api.interceptors.response.use(
+  response => {
+    if (response.status === 200 || response.status === 201) {
+      return Promise.resolve(response);
+    } else {
+      return Promise.reject(response);
+    }
+})
+
 Vue.use(Swal)
 
 new Vue({

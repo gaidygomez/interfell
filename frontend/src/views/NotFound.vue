@@ -5,7 +5,7 @@
 				<h1>Oops!</h1>
 				<h2>404 - The Page can't be found</h2>
 			</div>
-			<router-link to="/">Go TO Homepage</router-link>
+			<a @click="$router.back()">Go Back</a>
 		</div>
 	</div>
 </template>
