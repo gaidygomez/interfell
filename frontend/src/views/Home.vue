@@ -6,20 +6,32 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li></li>
           <li></li>
-          <li><a href="collapsible.html">Logout</a></li>
+          <li>
+            <button @click="logout" class="btn waves-effect waves-light" title="Logout">
+              <i class="material-icons prefix">
+                logout
+              </i>
+              Logout
+            </button>
+          </li>
         </ul>
       </div>
     </nav>
-    <hello-world />
+    <index />
   </div>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld.vue'
+import Index from '../components/Index.vue'
 
 export default {
   components: {
-    HelloWorld
+    Index
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
   }
 }
 </script>
@@ -27,5 +39,11 @@ export default {
 <style scoped>
 nav {
   background-color: #26a69a;  
+}
+
+.btn { 
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  height: 4rem;
 }
 </style>

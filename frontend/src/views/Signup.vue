@@ -57,21 +57,7 @@ export default {
   },
   methods: {
     signup() {
-      this.$http.get('/sanctum/csrf-cookie')
-        .then(() => {
-          this.$http.post('/api/register', {
-            username: this.user,
-            password: this.password,
-            password_confirmation: this.confirmation
-          })
-          .then(() => {
-            this.$router.push('/')
-          }).catch((err) => {
-            console.error(err.response)
-          });
-        }).catch((err) => {
-          console.error(err)
-        });
+      this.$store.dispatch('register')
     }
   }
 }

@@ -50,20 +50,10 @@
     },
     methods: {
       login() {
-        this.$http.get('/sanctum/csrf-cookie')
-          .then(() => {
-            this.$http.post('/api/login', {
-              username: this.user,
-              password: this.password
-            })
-              .then(res => {
-                  this.$store.commit('login', { token: res.data.access_token })
-                  
-                  this.$router.push('/home')
-              })
-              .catch(err => console.log(err))
-          })
-          .catch(err => console.error(err))
+        this.$store.dispatch('login', {
+          user: this.user,
+          password: this.password
+        })
       }
     }
   }
